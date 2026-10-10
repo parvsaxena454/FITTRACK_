@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>System Activity & Audit Logs - FitTrack Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('admin')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container-fluid px-lg-5 py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <a th:href="@{/admin/dashboard}" class="btn btn-outline-light btn-sm mb-2">&larr; Back to Admin Center</a>
+      <h2 class="fw-bold text-white mb-0"><i class="bi bi-clock-history text-accent me-2"></i> System Activity & Audit Trail</h2>
+      <p class="text-muted small mb-0">Immutable records of authentication events, workout modifications, challenges, and admin directives.</p>
+    </div>
+    <span class="badge badge-neon fs-6" th:text="${totalLogs + ' Events Logged'}">Total Logs</span>
+  </div>
+
+  <div class="card-dark">
+    <div class="table-responsive">
+      <table class="table table-dark-custom mb-0">
+        <thead>
+          <tr>
+            <th>Timestamp</th>
+            <th>Action Type</th>
+            <th>Event Description</th>
+            <th>Triggered By</th>
+            <th>IP Address</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="log : ${logs}">
+            <td class="text-nowrap" th:text="${#temporals.format(log.timestamp, 'yyyy-MM-dd HH:mm:ss')}">Time</td>
+            <td>
+              <span th:if="${log.actionType == 'LOGIN'}" class="badge bg-primary">LOGIN</span>
+              <span th:if="${log.actionType == 'REGISTER'}" class="badge bg-success">REGISTER</span>
+              <span th:if="${log.actionType == 'WORKOUT_LOGGED'}" class="badge bg-info text-dark">WORKOUT</span>
+              <span th:if="${log.actionType == 'CHALLENGE_JOINED'}" class="badge bg-warning text-dark">CHALLENGE</span>
+              <span th:if="${log.actionType == 'CONTENT_APPROVED'}" class="badge bg-success">APPROVED</span>
+              <span th:if="${log.actionType == 'CONTENT_REJECTED'}" class="badge bg-danger">REJECTED</span>
+              <span th:if="${log.actionType != 'LOGIN' && log.actionType != 'REGISTER' && log.actionType != 'WORKOUT_LOGGED' && log.actionType != 'CHALLENGE_JOINED' && log.actionType != 'CONTENT_APPROVED' && log.actionType != 'CONTENT_REJECTED'}" class="badge badge-neon" th:text="${log.actionType}">ACTION</span>
+            </td>
+            <td>
+              <span class="text-light" th:text="${log.description}">Event Description</span>
+            </td>
+            <td>
+              <span th:if="${log.user != null}">
+                <strong class="text-white" th:text="${log.user.fullName}">Name</strong>
+                <span class="text-muted small" th:text="${' (@' + log.user.username + ')'}">@user</span>
+              </span>
+              <span th:if="${log.user == null}" class="text-muted">SYSTEM</span>
+            </td>
+            <td>
+              <code class="text-muted" th:text="${log.ipAddress}">127.0.0.1</code>
+            </td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(logs)}">
+            <td colspan="5" class="text-center py-5 text-muted">No activity logs recorded yet.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

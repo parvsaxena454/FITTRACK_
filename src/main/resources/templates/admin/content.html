@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Content Editorial Queue - FitTrack Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('admin')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container-fluid px-lg-5 py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <a th:href="@{/admin/dashboard}" class="btn btn-outline-light btn-sm mb-2">&larr; Back to Admin Center</a>
+      <h2 class="fw-bold text-white mb-0"><i class="bi bi-journal-check text-warning me-2"></i> Fitness Content Editorial Moderation</h2>
+      <p class="text-muted small mb-0">Review community submitted articles, verify scientific integrity, and approve or reject submissions.</p>
+    </div>
+    <span class="badge bg-danger rounded-pill fs-6 px-3 py-2" th:text="${#lists.size(pendingList) + ' Pending Verification'}">Pending</span>
+  </div>
+
+  <!-- Pending Queue Detailed Cards -->
+  <div class="mb-5">
+    <h4 class="fw-bold text-white mb-3"><i class="bi bi-hourglass-split text-warning me-2"></i> Pending Editorial Submissions</h4>
+    <div class="row g-4">
+      <div th:each="art : ${pendingList}" class="col-lg-6">
+        <div class="card-dark p-4 border" style="border-color: #f59e0b;">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="badge badge-neon" th:text="${art.category}">Category</span>
+            <small class="text-muted" th:text="${#temporals.format(art.submittedAt, 'MMM dd, yyyy HH:mm')}">Date</small>
+          </div>
+
+          <h4 class="fw-bold text-white mb-2" th:text="${art.title}">Title</h4>
+          <div class="small text-muted mb-3">
+            Author: <strong class="text-light" th:text="${art.author.fullName}">Author</strong> (<span th:text="${'@' + art.author.username}">@user</span>)
+          </div>
+
+          <div class="p-3 rounded bg-dark-700 mb-3 border border-secondary">
+            <strong class="text-accent small d-block mb-1">Abstract Summary:</strong>
+            <p class="text-light small mb-2" th:text="${art.summary}">Summary text...</p>
+            <strong class="text-accent small d-block mb-1">Body Preview:</strong>
+            <div class="text-muted small text-truncate" style="max-height: 80px;" th:text="${art.bodyContent}">Body content preview...</div>
+          </div>
+
+          <!-- Moderation Decision Form -->
+          <div class="row g-2">
+            <div class="col-12 mb-2">
+              <label class="form-label text-light small fw-semibold">Editorial Feedback / Reason Note</label>
+              <input type="text" th:id="${'feedback-' + art.id}" class="form-control form-control-dark form-control-sm" placeholder="e.g. Excellent scientific breakdown / Requires better references">
+            </div>
+
+            <div class="col-6">
+              <form th:action="@{/admin/content/{id}/approve(id=${art.id})}" method="post" onsubmit="attachFeedback(this, event)">
+                <input type="hidden" name="feedback" th:id="${'app-fb-' + art.id}">
+                <button type="submit" class="btn btn-success fw-bold w-100 btn-sm">
+                  <i class="bi bi-check-circle-fill me-1"></i> Approve & Publish
+                </button>
+              </form>
+            </div>
+
+            <div class="col-6">
+              <form th:action="@{/admin/content/{id}/reject(id=${art.id})}" method="post" onsubmit="attachFeedback(this, event)">
+                <input type="hidden" name="feedback" th:id="${'rej-fb-' + art.id}">
+                <button type="submit" class="btn btn-outline-danger fw-bold w-100 btn-sm">
+                  <i class="bi bi-x-circle-fill me-1"></i> Reject Submission
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div th:if="${#lists.isEmpty(pendingList)}" class="col-12 text-center py-4">
+        <div class="card-dark p-4">
+          <i class="bi bi-check-circle text-success fs-2 d-block mb-2"></i>
+          <span class="text-muted">No pending articles requiring editorial review right now.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- All Content History Table -->
+  <div class="card-dark">
+    <div class="card-dark-header p-3 d-flex justify-content-between align-items-center">
+      <h5 class="fw-bold text-white mb-0">All Content History</h5>
+      <span class="badge badge-neon" th:text="${#lists.size(allList) + ' Submissions'}">All Count</span>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark-custom mb-0">
+        <thead>
+          <tr>
+            <th>Article Title</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Status</th>
+            <th>Review Feedback</th>
+            <th>Reviewed By</th>
+            <th class="text-end">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="art : ${allList}">
+            <td>
+              <strong class="text-white" th:text="${art.title}">Title</strong>
+            </td>
+            <td><span class="badge badge-neon" th:text="${art.category}">Category</span></td>
+            <td>
+              <span class="text-light" th:text="${art.author.fullName}">Author</span>
+              <div class="small text-muted" th:text="${'@' + art.author.username}">@user</div>
+            </td>
+            <td>
+              <span th:if="${art.status == 'APPROVED'}" class="badge bg-success">APPROVED</span>
+              <span th:if="${art.status == 'PENDING'}" class="badge bg-warning text-dark">PENDING</span>
+              <span th:if="${art.status == 'REJECTED'}" class="badge bg-danger">REJECTED</span>
+            </td>
+            <td>
+              <small class="text-muted" th:text="${art.adminFeedback != null ? art.adminFeedback : '--'}">Feedback</small>
+            </td>
+            <td>
+              <small class="text-muted" th:text="${art.reviewedBy != null ? '@' + art.reviewedBy : '--'}">Reviewer</small>
+            </td>
+            <td class="text-end">
+              <a th:href="@{/articles/{id}(id=${art.id})}" class="btn btn-sm btn-outline-light">
+                <i class="bi bi-eye"></i> Read
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function attachFeedback(form, event) {
+    const hiddenInput = form.querySelector('input[name="feedback"]');
+    const id = hiddenInput.id.split('-').pop();
+    const sourceInput = document.getElementById('feedback-' + id);
+    if (sourceInput && sourceInput.value.trim() !== "") {
+      hiddenInput.value = sourceInput.value.trim();
+    } else if (hiddenInput.id.startsWith('rej')) {
+      hiddenInput.value = "Content requires revision or citations before publication.";
+    } else {
+      hiddenInput.value = "Approved by FitTrack Editorial.";
+    }
+  }
+</script>
+</body>
+</html>

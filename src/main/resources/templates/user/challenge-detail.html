@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${challenge.title + ' - FitTrack'}">Challenge Detail - FitTrack</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('challenges')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container py-4">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <a th:href="@{/challenges}" class="btn btn-outline-light btn-sm">&larr; Back to Challenges</a>
+    <span class="badge badge-neon" th:text="${challenge.category}">Category</span>
+  </div>
+
+  <div class="row g-4 mb-4">
+    <!-- Challenge Info & Progress Section -->
+    <div class="col-lg-6">
+      <div class="card-dark p-4 p-md-5 h-100">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+          <span class="badge bg-dark-700 text-light border border-secondary" th:text="${'Difficulty: ' + challenge.difficulty}">Difficulty</span>
+          <span th:if="${challenge.active}" class="badge bg-success">Active</span>
+          <span th:if="${!challenge.active}" class="badge bg-secondary">Inactive</span>
+        </div>
+
+        <h2 class="fw-bold text-white mb-3" th:text="${challenge.title}">Challenge Title</h2>
+        <p class="text-muted mb-4 fs-6" th:text="${challenge.description}">Challenge Description</p>
+
+        <div class="p-3 rounded bg-dark-700 mb-4 border border-secondary">
+          <div class="row g-3">
+            <div class="col-6">
+              <small class="text-muted d-block">Target Objective</small>
+              <strong class="text-accent fs-5" th:text="${challenge.targetMetric + ' ' + challenge.targetUnit}">30 days</strong>
+            </div>
+            <div class="col-6">
+              <small class="text-muted d-block">Unlockable Badge</small>
+              <strong class="text-warning fs-5"><i class="bi bi-award-fill"></i> <span th:text="${challenge.rewardBadge}">Badge</span></strong>
+            </div>
+            <div class="col-6">
+              <small class="text-muted d-block">Start Date</small>
+              <span class="text-light" th:text="${#temporals.format(challenge.startDate, 'MMM dd, yyyy')}">Start</span>
+            </div>
+            <div class="col-6">
+              <small class="text-muted d-block">End Date</small>
+              <span class="text-light" th:text="${#temporals.format(challenge.endDate, 'MMM dd, yyyy')}">End</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Participation Status or Action -->
+        <div th:if="${userParticipation != null}" class="p-3 rounded bg-dark-800 border" style="border-color: rgba(204, 255, 0, 0.3);">
+          <div class="d-flex justify-content-between align-items-center mb-1">
+            <span class="fw-bold text-white">Your Participation Progress</span>
+            <span th:if="${userParticipation.status == 'COMPLETED'}" class="badge bg-success">Completed!</span>
+            <span th:if="${userParticipation.status != 'COMPLETED'}" class="badge badge-neon" th:text="${userParticipation.progressPercentage + '%'}">Progress</span>
+          </div>
+
+          <div class="progress progress-neon my-3" style="height: 12px;">
+            <div class="progress-bar" role="progressbar" th:style="'width: ' + ${userParticipation.progressPercentage} + '%'"></div>
+          </div>
+
+          <div class="d-flex justify-content-between small text-muted mb-3">
+            <span>Completed: <strong class="text-light" th:text="${userParticipation.progressValue + ' ' + challenge.targetUnit}">18 days</strong></span>
+            <span>Goal: <strong class="text-accent" th:text="${challenge.targetMetric + ' ' + challenge.targetUnit}">30 days</strong></span>
+          </div>
+
+          <!-- Add progress form -->
+          <form th:if="${userParticipation.status != 'COMPLETED'}" th:action="@{/challenges/participant/{id}/progress(id=${userParticipation.id})}" method="post">
+            <label class="form-label text-light small fw-semibold">Add Progress Entry</label>
+            <div class="input-group">
+              <input type="number" step="any" name="progressDelta" class="form-control form-control-dark" placeholder="e.g. 1" required>
+              <span class="input-group-text bg-dark-700 text-light border-secondary" th:text="${challenge.targetUnit}">days</span>
+              <button type="submit" class="btn btn-accent fw-bold">Log Progress</button>
+            </div>
+          </form>
+        </div>
+
+        <div th:if="${userParticipation == null}">
+          <form th:action="@{/challenges/{id}/join(id=${challenge.id})}" method="post">
+            <button type="submit" class="btn btn-accent btn-lg w-100 fw-bold">
+              <i class="bi bi-person-plus-fill me-2"></i> Join This Challenge Now
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leaderboard Section -->
+    <div class="col-lg-6">
+      <div class="card-dark h-100">
+        <div class="card-dark-header p-3 d-flex justify-content-between align-items-center">
+          <h5 class="fw-bold text-white mb-0"><i class="bi bi-award-fill text-warning me-2"></i> Participant Leaderboard</h5>
+          <span class="badge badge-neon" th:text="${#lists.size(leaderboard) + ' Enrolled'}">Count</span>
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-dark-custom mb-0">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Participant</th>
+                <th>Progress</th>
+                <th>%</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="part, stat : ${leaderboard}">
+                <td>
+                  <span th:if="${stat.count == 1}" class="badge bg-warning text-dark fs-6">🥇 #1</span>
+                  <span th:if="${stat.count == 2}" class="badge bg-secondary text-light fs-6">🥈 #2</span>
+                  <span th:if="${stat.count == 3}" class="badge text-dark fs-6" style="background: #cd7f32;">🥉 #3</span>
+                  <span th:if="${stat.count > 3}" class="text-muted fw-bold" th:text="${'#' + stat.count}">#4</span>
+                </td>
+                <td>
+                  <strong class="text-white" th:text="${part.user.fullName}">Ansh</strong>
+                  <div class="small text-muted" th:text="${'@' + part.user.username}">@ansh</div>
+                </td>
+                <td>
+                  <span th:text="${part.progressValue + ' ' + challenge.targetUnit}">18 days</span>
+                </td>
+                <td>
+                  <strong class="text-accent" th:text="${part.progressPercentage + '%'}">60%</strong>
+                </td>
+                <td>
+                  <span th:if="${part.status == 'COMPLETED'}" class="badge bg-success">Completed</span>
+                  <span th:if="${part.status != 'COMPLETED'}" class="badge bg-info text-dark">Active</span>
+                </td>
+              </tr>
+              <tr th:if="${#lists.isEmpty(leaderboard)}">
+                <td colspan="5" class="text-center py-4 text-muted">
+                  No participants enrolled in this challenge yet. Be the first to join!
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

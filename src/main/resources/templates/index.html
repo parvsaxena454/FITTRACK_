@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FitTrack - Online Fitness Tracking System</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <!-- Google Fonts Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<!-- Navbar -->
+<div th:replace="~{fragments/navbar :: navbar('home')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<!-- Hero Section -->
+<section class="py-5 text-center position-relative overflow-hidden" style="background: radial-gradient(circle at 50% 20%, rgba(204, 255, 0, 0.08) 0%, transparent 60%);">
+  <div class="container py-4">
+    <div class="d-inline-flex align-items-center gap-2 px-3 py-1 rounded-pill mb-4 border" style="background: rgba(30, 41, 59, 0.6); border-color: rgba(204, 255, 0, 0.3) !important;">
+      <span class="badge bg-accent rounded-pill">NEW</span>
+      <span class="small text-light fw-medium">Full-Stack Java Enterprise Fitness Platform</span>
+    </div>
+
+    <h1 class="display-3 fw-black text-white mb-3" style="letter-spacing: -1.5px; font-weight: 900;">
+      TRANSFORM YOUR ROUTINE WITH <br>
+      <span style="color: #ccff00; text-shadow: 0 0 30px rgba(204, 255, 0, 0.3);">FITTRACK</span>
+    </h1>
+
+    <p class="lead text-muted col-lg-8 mx-auto mb-4 fs-5">
+      A centralized web platform engineered to log workouts, track progressive fitness goals, join community challenges, and exchange science-backed athletic guides.
+    </p>
+
+    <!-- Quick Demo Access Pills Box -->
+    <div class="card-dark p-3 max-w-xl mx-auto mb-4 text-start col-lg-7 border" style="border-color: rgba(204, 255, 0, 0.25);">
+      <div class="d-flex align-items-center justify-content-between mb-2">
+        <span class="small fw-bold text-accent text-uppercase"><i class="bi bi-key-fill me-1"></i> Quick Evaluation Credentials</span>
+        <span class="badge bg-secondary">Preloaded Accounts</span>
+      </div>
+      <div class="row g-2">
+        <div class="col-md-6">
+          <div class="p-2 rounded bg-dark-700 border border-secondary small">
+            <span class="text-danger fw-bold"><i class="bi bi-shield-lock-fill"></i> Admin:</span>
+            <code class="text-light">admin@fittrack.com</code> / <code class="text-accent">admin123</code>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="p-2 rounded bg-dark-700 border border-secondary small">
+            <span class="text-success fw-bold"><i class="bi bi-person-fill"></i> User (Ansh):</span>
+            <code class="text-light">ansh@fittrack.com</code> / <code class="text-accent">password123</code>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap justify-content-center gap-3">
+      <a th:href="@{/login}" class="btn btn-accent btn-lg px-4 py-2 fs-6">
+        <i class="bi bi-box-arrow-in-right me-2"></i> Launch Application
+      </a>
+      <a th:href="@{/register}" class="btn btn-outline-light btn-lg px-4 py-2 fs-6">
+        <i class="bi bi-person-plus me-2"></i> Create Free Account
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Presentation & Architecture Highlights -->
+<section class="py-5" style="background-color: #0c121e; border-top: 1px solid #1e293b; border-bottom: 1px solid #1e293b;">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-6">
+        <span class="text-accent text-uppercase small fw-bold">Academic Project Defense</span>
+        <h2 class="fw-bold text-white mt-1 mb-3">Enterprise Multi-Tier Architecture</h2>
+        <p class="text-muted mb-4">
+          Engineered following strict Separation of Concerns (SoC) across Controllers, Services, Repositories, and Security layers with Hibernate ORM persistence and MySQL/H2 database support.
+        </p>
+
+        <div class="d-flex flex-column gap-3">
+          <div class="d-flex align-items-start gap-3">
+            <div class="stat-icon flex-shrink-0"><i class="bi bi-person-check-fill"></i></div>
+            <div>
+              <h6 class="text-white fw-bold mb-1">Role-Based Access Control (RBAC)</h6>
+              <p class="text-muted small mb-0">Strict segregation between regular fitness members (<code class="text-accent">ROLE_USER</code>) and administrative supervisors (<code class="text-danger">ROLE_ADMIN</code>).</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start gap-3">
+            <div class="stat-icon flex-shrink-0"><i class="bi bi-graph-up-arrow"></i></div>
+            <div>
+              <h6 class="text-white fw-bold mb-1">Granular Metric Tracking</h6>
+              <p class="text-muted small mb-0">Dynamic calculation of BMI, calorie burn rates, training duration distributions, and goal progress percentages.</p>
+            </div>
+          </div>
+          <div class="d-flex align-items-start gap-3">
+            <div class="stat-icon flex-shrink-0"><i class="bi bi-award-fill"></i></div>
+            <div>
+              <h6 class="text-white fw-bold mb-1">Challenge Progression Engine</h6>
+              <p class="text-muted small mb-0">Automated leaderboard calculations, participant milestones, and completion badge awards.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="card-dark p-4 shadow-lg border" style="border-color: rgba(204, 255, 0, 0.2);">
+          <div class="d-flex align-items-center justify-content-between mb-3 border-bottom pb-2" style="border-color: #273549 !important;">
+            <span class="fw-bold text-light"><i class="bi bi-diagram-3-fill text-accent me-2"></i> Execution Pipeline</span>
+            <span class="badge badge-neon">Spring MVC</span>
+          </div>
+
+          <div class="list-group list-group-flush gap-2 bg-transparent">
+            <div class="list-group-item bg-dark-700 text-light border-0 rounded p-2 small d-flex justify-content-between align-items-center">
+              <span><strong>1. Browser Client</strong>: HTML5 / CSS3 / JavaScript / Bootstrap 5</span>
+              <span class="badge bg-secondary">Client Tier</span>
+            </div>
+            <div class="list-group-item bg-dark-700 text-light border-0 rounded p-2 small d-flex justify-content-between align-items-center">
+              <span><strong>2. Thymeleaf Engine</strong>: Server-Side UI Rendering</span>
+              <span class="badge bg-info text-dark">View Tier</span>
+            </div>
+            <div class="list-group-item bg-dark-700 text-light border-0 rounded p-2 small d-flex justify-content-between align-items-center">
+              <span><strong>3. Spring Controllers</strong>: Routing & Parameter Binding</span>
+              <span class="badge bg-warning text-dark">Web Tier</span>
+            </div>
+            <div class="list-group-item bg-dark-700 text-light border-0 rounded p-2 small d-flex justify-content-between align-items-center">
+              <span><strong>4. Business Service Layer</strong>: Domain Rules & Transaction Boundaries</span>
+              <span class="badge bg-success">Logic Tier</span>
+            </div>
+            <div class="list-group-item bg-dark-700 text-light border-0 rounded p-2 small d-flex justify-content-between align-items-center">
+              <span><strong>5. Spring Data JPA & Hibernate</strong>: ORM Mapping & Repositories</span>
+              <span class="badge bg-primary">Data Tier</span>
+            </div>
+            <div class="list-group-item bg-dark-700 text-light border-0 rounded p-2 small d-flex justify-content-between align-items-center">
+              <span><strong>6. MySQL / Persistent DB</strong>: Structured Relational Storage</span>
+              <span class="badge bg-dark border border-secondary">RDBMS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Active Challenges Showcase -->
+<section class="py-5">
+  <div class="container">
+    <div class="d-flex align-items-end justify-content-between mb-4">
+      <div>
+        <span class="text-accent text-uppercase small fw-bold">Live Competitions</span>
+        <h2 class="fw-bold text-white mb-0">Active Fitness Challenges</h2>
+      </div>
+      <a th:href="@{/challenges}" class="btn btn-outline-accent btn-sm">View All Challenges <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-4">
+      <div th:each="c : ${activeChallenges}" class="col-md-6 col-lg-3">
+        <div class="card-dark p-3 h-100 d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex justify-content-between align-items-start mb-2">
+              <span class="badge badge-neon" th:text="${c.category}">Cardio</span>
+              <span class="badge bg-dark-700 text-light border border-secondary" th:text="${c.difficulty}">Medium</span>
+            </div>
+            <h5 class="fw-bold text-white mb-2" th:text="${c.title}">Challenge Title</h5>
+            <p class="text-muted small mb-3" th:text="${c.description}">Description text...</p>
+          </div>
+          <div>
+            <div class="d-flex justify-content-between small text-light mb-2">
+              <span>Target: <strong class="text-accent" th:text="${c.targetMetric + ' ' + c.targetUnit}">30 days</strong></span>
+              <span th:if="${c.rewardBadge != null}" class="text-warning"><i class="bi bi-award-fill"></i> <span th:text="${c.rewardBadge}">Badge</span></span>
+            </div>
+            <a th:href="@{/challenges/{id}(id=${c.id})}" class="btn btn-sm btn-outline-light w-100">Details & Join</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Community Guides -->
+<section class="py-5" style="background-color: #0c121e; border-top: 1px solid #1e293b;">
+  <div class="container">
+    <div class="d-flex align-items-end justify-content-between mb-4">
+      <div>
+        <span class="text-accent text-uppercase small fw-bold">Editorial Articles</span>
+        <h2 class="fw-bold text-white mb-0">Science-Backed Guides</h2>
+      </div>
+      <a th:href="@{/articles}" class="btn btn-outline-accent btn-sm">Explore Guides <i class="bi bi-arrow-right"></i></a>
+    </div>
+
+    <div class="row g-4">
+      <div th:each="art : ${featuredArticles}" class="col-md-6">
+        <div class="card-dark p-4 h-100">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-neon" th:text="${art.category}">Workout Guide</span>
+            <small class="text-muted" th:text="${#temporals.format(art.submittedAt, 'MMM dd, yyyy')}">Date</small>
+          </div>
+          <h4 class="fw-bold text-white mb-2">
+            <a th:href="@{/articles/{id}(id=${art.id})}" class="text-white text-decoration-none hover-accent" th:text="${art.title}">Title</a>
+          </h4>
+          <p class="text-muted small mb-3" th:text="${art.summary}">Summary text...</p>
+          <div class="d-flex align-items-center justify-content-between border-top pt-3" style="border-color: #1e293b !important;">
+            <span class="small text-light"><i class="bi bi-person-circle text-accent me-1"></i> Author: <span th:text="${art.author.fullName}">Author</span></span>
+            <a th:href="@{/articles/{id}(id=${art.id})}" class="small text-accent text-decoration-none fw-bold">Read Full Guide &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

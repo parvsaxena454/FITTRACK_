@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manage Challenges - FitTrack Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('admin')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container-fluid px-lg-5 py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <a th:href="@{/admin/dashboard}" class="btn btn-outline-light btn-sm mb-2">&larr; Back to Admin Center</a>
+      <h2 class="fw-bold text-white mb-0"><i class="bi bi-trophy-fill text-warning me-2"></i> Challenge Creation & Management</h2>
+      <p class="text-muted small mb-0">Create new community challenges, activate/deactivate competitions, and monitor participants.</p>
+    </div>
+  </div>
+
+  <div class="row g-4 mb-4">
+    <!-- Challenge Creation Form -->
+    <div class="col-lg-5">
+      <div class="card-dark p-4">
+        <h4 class="fw-bold text-white mb-3 pb-2 border-bottom border-secondary">
+          <i class="bi bi-plus-circle text-accent me-2"></i> Launch New Challenge
+        </h4>
+
+        <form th:action="@{/admin/challenges/new}" method="post">
+          <div class="mb-3">
+            <label for="title" class="form-label text-light small fw-semibold">Challenge Title</label>
+            <input type="text" id="title" name="title" class="form-control form-control-dark" placeholder="e.g. 30-Day Core & Abs Blitz" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label text-light small fw-semibold">Description</label>
+            <textarea id="description" name="description" rows="3" class="form-control form-control-dark" placeholder="Rules, focus areas, and daily guidance..." required></textarea>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="category" class="form-label text-light small fw-semibold">Category</label>
+              <select id="category" name="category" class="form-select form-select-dark" required>
+                <option value="Cardio">Cardio</option>
+                <option value="Strength">Strength</option>
+                <option value="Consistency">Consistency</option>
+                <option value="Endurance">Endurance</option>
+                <option value="Flexibility">Flexibility</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="difficulty" class="form-label text-light small fw-semibold">Difficulty</label>
+              <select id="difficulty" name="difficulty" class="form-select form-select-dark" required>
+                <option value="Beginner">Beginner</option>
+                <option value="Intermediate" selected>Intermediate</option>
+                <option value="Advanced">Advanced</option>
+                <option value="Elite">Elite</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="targetMetric" class="form-label text-light small fw-semibold">Target Metric</label>
+              <input type="number" step="any" id="targetMetric" name="targetMetric" class="form-control form-control-dark" placeholder="e.g. 30" required>
+            </div>
+            <div class="col-md-6">
+              <label for="targetUnit" class="form-label text-light small fw-semibold">Unit</label>
+              <input type="text" id="targetUnit" name="targetUnit" class="form-control form-control-dark" placeholder="days, km, kcal, reps" value="days" required>
+            </div>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <label for="startDate" class="form-label text-light small fw-semibold">Start Date</label>
+              <input type="date" id="startDate" name="startDate" class="form-control form-control-dark" th:value="${today}" required>
+            </div>
+            <div class="col-md-6">
+              <label for="endDate" class="form-label text-light small fw-semibold">End Date</label>
+              <input type="date" id="endDate" name="endDate" class="form-control form-control-dark" th:value="${defaultEndDate}" required>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <label for="rewardBadge" class="form-label text-light small fw-semibold">Reward Badge Title</label>
+            <input type="text" id="rewardBadge" name="rewardBadge" class="form-control form-control-dark" placeholder="e.g. Core Titan">
+          </div>
+
+          <button type="submit" class="btn btn-accent fw-bold w-100 py-2">
+            Publish Challenge to Members
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Challenges Table -->
+    <div class="col-lg-7">
+      <div class="card-dark">
+        <div class="card-dark-header p-3 d-flex justify-content-between align-items-center">
+          <h5 class="fw-bold text-white mb-0">System Challenges</h5>
+          <span class="badge badge-neon" th:text="${#lists.size(challenges) + ' Total'}">Count</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark-custom mb-0">
+            <thead>
+              <tr>
+                <th>Challenge</th>
+                <th>Target</th>
+                <th>Participants</th>
+                <th>Status</th>
+                <th class="text-end">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="c : ${challenges}">
+                <td>
+                  <strong class="text-white" th:text="${c.title}">Title</strong>
+                  <div class="small text-muted">
+                    <span class="badge badge-neon" th:text="${c.category}">Cat</span>
+                    <span class="ms-1" th:text="${c.difficulty}">Diff</span>
+                  </div>
+                </td>
+                <td>
+                  <span class="text-accent fw-bold" th:text="${c.targetMetric + ' ' + c.targetUnit}">30 days</span>
+                </td>
+                <td>
+                  <a th:href="@{/admin/challenges/{id}/participants(id=${c.id})}" class="badge bg-dark-700 text-light border border-secondary text-decoration-none">
+                    <i class="bi bi-people-fill text-accent me-1"></i> <span th:text="${#lists.size(c.participants)}">0</span> Enrolled
+                  </a>
+                </td>
+                <td>
+                  <span th:if="${c.active}" class="badge bg-success">ACTIVE</span>
+                  <span th:if="${!c.active}" class="badge bg-secondary">INACTIVE</span>
+                </td>
+                <td class="text-end text-nowrap">
+                  <!-- Toggle Active -->
+                  <form th:action="@{/admin/challenges/{id}/toggle(id=${c.id})}" method="post" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-light me-1" th:title="${c.active ? 'Deactivate' : 'Activate'}">
+                      <i class="bi bi-power"></i>
+                    </button>
+                  </form>
+                  <!-- View Participants -->
+                  <a th:href="@{/admin/challenges/{id}/participants(id=${c.id})}" class="btn btn-sm btn-outline-accent me-1" title="Participants">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <!-- Delete -->
+                  <form th:action="@{/admin/challenges/{id}/delete(id=${c.id})}" method="post" class="d-inline" onsubmit="return confirm('Delete this challenge?');">
+                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

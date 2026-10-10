@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Articles - FitTrack</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('articles')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container-fluid px-lg-5 py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <h2 class="fw-bold text-white mb-1"><i class="bi bi-journal-richtext text-accent me-2"></i> Fitness & Nutrition Guides</h2>
+      <p class="text-muted small mb-0">Science-backed training principles, recovery protocols, and diet strategies curated by our community.</p>
+    </div>
+    <div class="d-flex gap-2">
+      <a th:href="@{/content/submit}" class="btn btn-accent fw-bold d-flex align-items-center gap-2">
+        <i class="bi bi-pencil-square"></i> Submit Article
+      </a>
+      <a th:href="@{/content/my-submissions}" class="btn btn-outline-light d-flex align-items-center gap-2">
+        <i class="bi bi-file-earmark-person"></i> My Submissions
+      </a>
+    </div>
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <a th:href="@{/articles(category='ALL')}" class="btn btn-sm" th:classappend="${selectedCategory == 'ALL' ? 'btn-accent' : 'btn-dark-700 text-light border border-secondary'}">All Categories</a>
+    <a th:href="@{/articles(category='Workout Guide')}" class="btn btn-sm" th:classappend="${selectedCategory == 'Workout Guide' ? 'btn-accent' : 'btn-dark-700 text-light border border-secondary'}">Workout Guides</a>
+    <a th:href="@{/articles(category='Nutrition & Diet')}" class="btn btn-sm" th:classappend="${selectedCategory == 'Nutrition & Diet' ? 'btn-accent' : 'btn-dark-700 text-light border border-secondary'}">Nutrition & Diet</a>
+    <a th:href="@{/articles(category='Recovery & Sleep')}" class="btn btn-sm" th:classappend="${selectedCategory == 'Recovery & Sleep' ? 'btn-accent' : 'btn-dark-700 text-light border border-secondary'}">Recovery & Sleep</a>
+    <a th:href="@{/articles(category='Motivational')}" class="btn btn-sm" th:classappend="${selectedCategory == 'Motivational' ? 'btn-accent' : 'btn-dark-700 text-light border border-secondary'}">Motivational</a>
+  </div>
+
+  <!-- Articles Grid -->
+  <div class="row g-4">
+    <div th:each="art : ${articles}" class="col-md-6 col-lg-4">
+      <div class="card-dark p-4 h-100 d-flex flex-column justify-content-between">
+        <div>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="badge badge-neon" th:text="${art.category}">Category</span>
+            <small class="text-muted" th:text="${#temporals.format(art.submittedAt, 'MMM dd, yyyy')}">Date</small>
+          </div>
+
+          <h5 class="fw-bold text-white mb-2">
+            <a th:href="@{/articles/{id}(id=${art.id})}" class="text-white text-decoration-none" th:text="${art.title}">Title</a>
+          </h5>
+          <p class="text-muted small mb-3" th:text="${art.summary}">Summary text...</p>
+        </div>
+
+        <div class="border-top pt-3 d-flex justify-content-between align-items-center" style="border-color: #273549 !important;">
+          <div class="small text-muted">
+            <i class="bi bi-person-fill text-accent"></i> <span class="text-light" th:text="${art.author.fullName}">Author</span>
+          </div>
+          <a th:href="@{/articles/{id}(id=${art.id})}" class="btn btn-sm btn-outline-accent">Read Full &rarr;</a>
+        </div>
+      </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(articles)}" class="col-12 text-center py-5">
+      <div class="card-dark p-5">
+        <i class="bi bi-journal-x text-muted fs-1 d-block mb-3"></i>
+        <h4 class="text-white">No approved articles in this category yet</h4>
+        <p class="text-muted">Have valuable training insight to share? Submit an article for editorial approval.</p>
+        <a th:href="@{/content/submit}" class="btn btn-accent btn-sm">Submit New Article</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

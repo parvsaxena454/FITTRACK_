@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - FitTrack</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body class="d-flex flex-column justify-content-between min-vh-100">
+
+<!-- Simple Navbar -->
+<div th:replace="~{fragments/navbar :: navbar('login')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container my-auto py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-7 col-lg-5">
+      <div class="card-dark p-4 p-md-5 shadow-lg">
+        <div class="text-center mb-4">
+          <div class="d-inline-flex p-3 rounded-circle mb-3" style="background: rgba(204, 255, 0, 0.15);">
+            <i class="bi bi-shield-lock text-accent fs-2"></i>
+          </div>
+          <h3 class="fw-bold text-white mb-1">Welcome Back</h3>
+          <p class="text-muted small">Sign in to your FitTrack member or admin console</p>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+          <div class="mb-3">
+            <label for="username" class="form-label text-light small fw-semibold">Username or Email</label>
+            <div class="input-group">
+              <span class="input-group-text bg-dark-700 text-muted border-secondary"><i class="bi bi-person"></i></span>
+              <input type="text" id="username" name="username" class="form-control form-control-dark" placeholder="Enter username or email" required autofocus>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <label for="password" class="form-label text-light small fw-semibold mb-0">Password</label>
+            </div>
+            <div class="input-group">
+              <span class="input-group-text bg-dark-700 text-muted border-secondary"><i class="bi bi-key"></i></span>
+              <input type="password" id="password" name="password" class="form-control form-control-dark" placeholder="Enter password" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-accent w-100 py-2 mb-3 fw-bold">
+            Sign In to Dashboard <i class="bi bi-arrow-right ms-1"></i>
+          </button>
+        </form>
+
+        <!-- Quick Demo Login Selection -->
+        <div class="border-top pt-3 mt-3" style="border-color: #273549 !important;">
+          <p class="small text-muted mb-2 text-center fw-medium">Quick Demo Autofill (1-Click Test):</p>
+          <div class="d-flex flex-wrap gap-2 justify-content-center">
+            <button type="button" class="btn btn-sm btn-outline-danger" onclick="fillCreds('admin', 'admin123')">
+              <i class="bi bi-shield-lock-fill"></i> Admin
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-accent" onclick="fillCreds('ansh', 'password123')">
+              Ansh (Leader)
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-light" onclick="fillCreds('aryan', 'password123')">
+              Aryan
+            </button>
+            <button type="button" class="btn btn-sm btn-outline-light" onclick="fillCreds('aryaman', 'password123')">
+              Aryaman
+            </button>
+          </div>
+        </div>
+
+        <div class="text-center mt-4 pt-2">
+          <span class="text-muted small">Don't have an account? </span>
+          <a th:href="@{/register}" class="text-accent small fw-bold text-decoration-none">Register Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function fillCreds(u, p) {
+    document.getElementById('username').value = u;
+    document.getElementById('password').value = p;
+  }
+</script>
+</body>
+</html>

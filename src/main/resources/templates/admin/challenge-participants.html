@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenge Participants - FitTrack Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar('admin')}"></div>
+<div th:replace="~{fragments/navbar :: alerts}"></div>
+
+<div class="container-fluid px-lg-5 py-4">
+  <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+      <a th:href="@{/admin/challenges}" class="btn btn-outline-light btn-sm mb-2">&larr; Back to Challenges</a>
+      <h2 class="fw-bold text-white mb-0">
+        <i class="bi bi-people-fill text-accent me-2"></i> Participant Progress: <span th:text="${challenge.title}">Challenge Title</span>
+      </h2>
+      <p class="text-muted small mb-0">Target Metric: <strong class="text-accent" th:text="${challenge.targetMetric + ' ' + challenge.targetUnit}">30 days</strong> &bull; Category: <span th:text="${challenge.category}">Cat</span></p>
+    </div>
+    <span class="badge badge-neon fs-6" th:text="${#lists.size(participants) + ' Enrolled Participants'}">Count</span>
+  </div>
+
+  <div class="card-dark">
+    <div class="table-responsive">
+      <table class="table table-dark-custom mb-0">
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Member</th>
+            <th>Completed Metric</th>
+            <th>Progression</th>
+            <th>Status</th>
+            <th>Enrolled Date</th>
+            <th>Last Updated</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="p, stat : ${participants}">
+            <td>
+              <span th:if="${stat.count == 1}" class="badge bg-warning text-dark fs-6">🥇 #1</span>
+              <span th:if="${stat.count == 2}" class="badge bg-secondary text-light fs-6">🥈 #2</span>
+              <span th:if="${stat.count == 3}" class="badge text-dark fs-6" style="background: #cd7f32;">🥉 #3</span>
+              <span th:if="${stat.count > 3}" class="text-muted fw-bold" th:text="${'#' + stat.count}">#4</span>
+            </td>
+            <td>
+              <strong class="text-white" th:text="${p.user.fullName}">Ansh</strong>
+              <div class="small text-muted" th:text="${'@' + p.user.username + ' &bull; ' + p.user.email}">@user</div>
+            </td>
+            <td>
+              <span class="fw-bold text-light" th:text="${p.progressValue + ' / ' + challenge.targetMetric + ' ' + challenge.targetUnit}">18 / 30 days</span>
+            </td>
+            <td style="min-width: 200px;">
+              <div class="d-flex justify-content-between small mb-1">
+                <span class="text-accent fw-bold" th:text="${p.progressPercentage + '%'}">60%</span>
+              </div>
+              <div class="progress progress-neon" style="height: 8px;">
+                <div class="progress-bar" role="progressbar" th:style="'width: ' + ${p.progressPercentage} + '%'"></div>
+              </div>
+            </td>
+            <td>
+              <span th:if="${p.status == 'COMPLETED'}" class="badge bg-success"><i class="bi bi-award-fill me-1"></i> COMPLETED</span>
+              <span th:if="${p.status != 'COMPLETED'}" class="badge bg-primary">IN PROGRESS</span>
+            </td>
+            <td th:text="${#temporals.format(p.joinedDate, 'MMM dd, yyyy')}">Date</td>
+            <td th:text="${#temporals.format(p.lastUpdated, 'MMM dd, HH:mm')}">Date</td>
+          </tr>
+          <tr th:if="${#lists.isEmpty(participants)}">
+            <td colspan="7" class="text-center py-5 text-muted">
+              <i class="bi bi-people fs-1 d-block mb-2"></i>
+              No members have registered for this challenge yet.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
