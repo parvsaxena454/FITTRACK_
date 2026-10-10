@@ -16,7 +16,12 @@ if "%REPO_URL%"=="" (
     exit /b 1
 )
 
-set "GIT_CMD=C:\Users\LOQ\.gemini\antigravity\scratch\tools\mingit\cmd\git.exe"
+where git >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    set "GIT_CMD=git"
+) else (
+    set "GIT_CMD=C:\Users\LOQ\.gemini\antigravity\scratch\tools\mingit\cmd\git.exe"
+)
 
 echo.
 echo [1/3] Setting remote origin to %REPO_URL% ...

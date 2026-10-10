@@ -12,6 +12,12 @@ echo   - Admin: admin@fittrack.com / admin123
 echo   - User:  ansh@fittrack.com / password123
 echo.
 
-set "MAVEN_CMD=C:\Users\LOQ\.gemini\antigravity\scratch\tools\apache-maven-3.9.9\bin\mvn.cmd"
+where mvn >nul 2>nul
+if %ERRORLEVEL% EQU 0 (
+    set "MAVEN_CMD=mvn"
+) else (
+    set "MAVEN_CMD=C:\Users\LOQ\.gemini\antigravity\scratch\tools\apache-maven-3.9.9\bin\mvn.cmd"
+)
+
 "%MAVEN_CMD%" spring-boot:run
 pause
