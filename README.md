@@ -207,7 +207,7 @@ When testing or demonstrating to your professor/evaluator:
 | `http://localhost:8080/challenges` | Web UI | Browse challenges, join community events, view leaderboards |
 | `http://localhost:8080/content` | Web UI | Fitness guides and moderation queue |
 | `http://localhost:8080/admin/dashboard` | Web UI | Admin analytics, user management, and moderation queue |
-| `http://localhost:8080/metrics/live` | **Pure Servlet** | Live JSON output directly from `DirectMetricsServlet` showing active sessions & memory stats |
+| `http://localhost:8080/api/servlet/metrics` | **Pure Servlet** | Live JSON output directly from `DirectMetricsServlet` showing active sessions, database metrics & pure JDBC integration |
 
 ---
 

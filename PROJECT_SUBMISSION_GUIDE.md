@@ -85,7 +85,7 @@ FitTrack is an enterprise-grade full-stack Java web application designed to moni
 ### 🌐 Component 5: Servlets & Web Infrastructure
 *Where in the code:*
 1. **Pure HttpServlet:**
-   - `com.fittrack.servlet.DirectMetricsServlet`: Extends `jakarta.servlet.http.HttpServlet`. Implements `doGet(HttpServletRequest, HttpServletResponse)` to output live runtime JSON telemetry directly at `/metrics/live`.
+   - `com.fittrack.servlet.DirectMetricsServlet`: Extends `jakarta.servlet.http.HttpServlet`. Implements `doGet(HttpServletRequest, HttpServletResponse)` to output live runtime JSON telemetry directly at `/api/servlet/metrics`.
 2. **Jakarta Filter:**
    - `com.fittrack.servlet.AuditLoggingFilter`: Implements `jakarta.servlet.Filter`. Intercepts incoming HTTP requests, records request start time, logs URI, and computes response execution latency.
 3. **Session Listener:**
@@ -112,7 +112,7 @@ The project comes with `schema-mysql.sql` containing standard DDL for all 8 enti
 1. **Start Application:** Double-click `run.bat` or run `mvn spring-boot:run`.
 2. **Login as Leader (Ansh):** Click "Fill Ansh (User)" button on login page, click "Sign In".
 3. **Log a Workout:** Go to "Workouts" -> "Log New Workout" -> fill in details -> Save. Observe immediate recalculation of total calories burned and statistics.
-4. **Inspect Pure Servlet:** Navigate to `http://localhost:8080/metrics/live` to show the examiner the raw Servlet response outputting live JVM memory, active sessions, and request counts.
+4. **Inspect Pure Servlet:** Navigate to `http://localhost:8080/api/servlet/metrics` to show the examiner the raw Servlet response outputting live JVM memory, active sessions, and request counts.
 5. **Login as Admin:** Log out, click "Fill Admin" button, and log in. Navigate to Admin Dashboard to review user accounts, approve pending fitness guides, and view system activity logs.
 
 ---
