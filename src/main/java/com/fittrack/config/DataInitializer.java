@@ -5,6 +5,7 @@ import com.fittrack.repository.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -43,6 +44,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
+    @Transactional
     public void run(String... args) throws Exception {
         if (userRepository.count() > 0) {
             return; // Data already initialized
@@ -79,40 +81,56 @@ public class DataInitializer implements CommandLineRunner {
         ansh.setHeight(178.0);
         ansh.setFitnessLevel("Advanced");
         ansh.setTargetGoalSummary("Hypertrophy & Marathon Endurance");
-        ansh.setBio("B.Tech CSE - AI/ML. Fitness enthusiast, marathon runner, and weightlifting advocate.");
+        ansh.setBio("B.Tech CSE - AI/ML. Team Leader. Fitness enthusiast, marathon runner, and weightlifting advocate.");
         ansh = userRepository.save(ansh);
 
-        // Group Member: Aryan Bhardwaj
-        User aryan = new User();
-        aryan.setUsername("aryan");
-        aryan.setEmail("aryan@fittrack.com");
-        aryan.setPassword(passwordEncoder.encode("password123"));
-        aryan.setFullName("Aryan Bhardwaj");
-        aryan.setRole("ROLE_USER");
-        aryan.setEnabled(true);
-        aryan.setAge(21);
-        aryan.setWeight(68.0);
-        aryan.setHeight(174.0);
-        aryan.setFitnessLevel("Intermediate");
-        aryan.setTargetGoalSummary("Calisthenics & Lean Mass");
-        aryan.setBio("B.Tech CSE student passionate about bodyweight mastery and functional agility.");
-        aryan = userRepository.save(aryan);
+        // Active Member 1: Anand Soni
+        User anand = new User();
+        anand.setUsername("anand");
+        anand.setEmail("anand@fittrack.com");
+        anand.setPassword(passwordEncoder.encode("password123"));
+        anand.setFullName("Anand Soni");
+        anand.setRole("ROLE_USER");
+        anand.setEnabled(true);
+        anand.setAge(21);
+        anand.setWeight(68.0);
+        anand.setHeight(174.0);
+        anand.setFitnessLevel("Intermediate");
+        anand.setTargetGoalSummary("Calisthenics & Lean Mass");
+        anand.setBio("Active Member. B.Tech CSE student passionate about bodyweight mastery, calisthenics, and agility.");
+        anand = userRepository.save(anand);
 
-        // Group Member: Aryaman Singh
-        User aryaman = new User();
-        aryaman.setUsername("aryaman");
-        aryaman.setEmail("aryaman@fittrack.com");
-        aryaman.setPassword(passwordEncoder.encode("password123"));
-        aryaman.setFullName("Aryaman Singh");
-        aryaman.setRole("ROLE_USER");
-        aryaman.setEnabled(true);
-        aryaman.setAge(21);
-        aryaman.setWeight(82.0);
-        aryaman.setHeight(182.0);
-        aryaman.setFitnessLevel("Intermediate");
-        aryaman.setTargetGoalSummary("Powerlifting & Strength Development");
-        aryaman.setBio("Focusing on the Big Three: Squat, Bench, and Deadlift.");
-        aryaman = userRepository.save(aryaman);
+        // Active Member 2: Parv Saxena
+        User parv = new User();
+        parv.setUsername("parv");
+        parv.setEmail("parv@fittrack.com");
+        parv.setPassword(passwordEncoder.encode("password123"));
+        parv.setFullName("Parv Saxena");
+        parv.setRole("ROLE_USER");
+        parv.setEnabled(true);
+        parv.setAge(21);
+        parv.setWeight(82.0);
+        parv.setHeight(182.0);
+        parv.setFitnessLevel("Intermediate");
+        parv.setTargetGoalSummary("Powerlifting & Strength Development");
+        parv.setBio("Active Member. Focusing on progressive overload and the Big Three: Squat, Bench, and Deadlift.");
+        parv = userRepository.save(parv);
+
+        // Active Member 3: Aniket Raj
+        User aniket = new User();
+        aniket.setUsername("aniket");
+        aniket.setEmail("aniket@fittrack.com");
+        aniket.setPassword(passwordEncoder.encode("password123"));
+        aniket.setFullName("Aniket Raj");
+        aniket.setRole("ROLE_USER");
+        aniket.setEnabled(true);
+        aniket.setAge(21);
+        aniket.setWeight(71.0);
+        aniket.setHeight(176.0);
+        aniket.setFitnessLevel("Advanced");
+        aniket.setTargetGoalSummary("Sub-40 10K & Metabolic Conditioning");
+        aniket.setBio("Active Member. Dedicated to long-distance running, interval cardiovascular conditioning, and HIIT.");
+        aniket = userRepository.save(aniket);
 
         // 2. Seed Workouts
         workoutRepository.save(new Workout(ansh, "Chest & Triceps Hypertrophy", "Strength", 65, 480, LocalDate.now().minusDays(1), "HIGH", "Bench press 4x8 @ 85kg, Incline DB press 3x10, Dips 3x12."));
@@ -121,19 +139,23 @@ public class DataInitializer implements CommandLineRunner {
         workoutRepository.save(new Workout(ansh, "Leg Day Heavy Squats", "Strength", 70, 560, LocalDate.now().minusDays(5), "HIGH", "Back squat 5x5 @ 110kg, Romanian deadlifts 4x10, Bulgarian split squats."));
         workoutRepository.save(new Workout(ansh, "Post-Run Yoga Recovery", "Yoga", 35, 140, LocalDate.now().minusDays(6), "LOW", "Hamstring stretches, hip openers, and spine mobility work."));
 
-        workoutRepository.save(new Workout(aryan, "Upper Body Calisthenics", "Strength", 50, 380, LocalDate.now().minusDays(1), "MEDIUM", "Muscle-up drills, weighted pull-ups +10kg, ring push-ups."));
-        workoutRepository.save(new Workout(aryan, "5km Evening Park Run", "Cardio", 26, 310, LocalDate.now().minusDays(3), "MEDIUM", "Fast paced tempo run through central park."));
+        workoutRepository.save(new Workout(anand, "Upper Body Calisthenics", "Strength", 50, 380, LocalDate.now().minusDays(1), "MEDIUM", "Muscle-up drills, weighted pull-ups +10kg, ring push-ups."));
+        workoutRepository.save(new Workout(anand, "5km Evening Park Run", "Cardio", 26, 310, LocalDate.now().minusDays(3), "MEDIUM", "Fast paced tempo run through central park."));
 
-        workoutRepository.save(new Workout(aryaman, "Deadlift PR Session", "Strength", 75, 610, LocalDate.now().minusDays(2), "HIGH", "Deadlifts worked up to 160kg triple. Barbell rows 4x8."));
-        workoutRepository.save(new Workout(aryaman, "Stairmaster & Core Burn", "Cardio", 35, 340, LocalDate.now().minusDays(4), "MEDIUM", "Level 8 steady pace, hanging leg raises."));
+        workoutRepository.save(new Workout(parv, "Deadlift PR Session", "Strength", 75, 610, LocalDate.now().minusDays(2), "HIGH", "Deadlifts worked up to 160kg triple. Barbell rows 4x8."));
+        workoutRepository.save(new Workout(parv, "Stairmaster & Core Burn", "Cardio", 35, 340, LocalDate.now().minusDays(4), "MEDIUM", "Level 8 steady pace, hanging leg raises."));
+
+        workoutRepository.save(new Workout(aniket, "Interval 10km Track Run", "Cardio", 48, 550, LocalDate.now().minusDays(1), "HIGH", "10x400m intervals at 3:45 min/km pace with 60s jog recoveries."));
+        workoutRepository.save(new Workout(aniket, "Kettlebell Conditioning & Plyo", "HIIT", 35, 410, LocalDate.now().minusDays(3), "HIGH", "Box jumps, kettlebell cleans, wall balls."));
 
         // 3. Seed Fitness Goals
         fitnessGoalRepository.save(new FitnessGoal(ansh, "Reach 72 kg Target Weight", "Weight Loss", 72.0, 74.5, "kg", LocalDate.now().minusDays(14), LocalDate.now().plusDays(30), "Gradual sustainable fat loss cutting phase."));
         fitnessGoalRepository.save(new FitnessGoal(ansh, "Run 10km Sub-48 Minutes", "Running Distance", 10.0, 8.0, "km", LocalDate.now().minusDays(10), LocalDate.now().plusDays(20), "Preparing for the city spring 10k race."));
         fitnessGoalRepository.save(new FitnessGoal(ansh, "Burn 3,500 kcal Weekly from Workouts", "Weekly Workouts", 3500.0, 2060.0, "kcal", LocalDate.now().minusDays(4), LocalDate.now().plusDays(3), "Active weekly expenditure target."));
 
-        fitnessGoalRepository.save(new FitnessGoal(aryan, "Achieve 15 Clean Muscle-Ups", "Muscle Gain", 15.0, 9.0, "reps", LocalDate.now().minusDays(15), LocalDate.now().plusDays(45), "Master strict bar muscle-ups with clean form."));
-        fitnessGoalRepository.save(new FitnessGoal(aryaman, "Hit 180kg Deadlift 1RM", "Powerlifting", 180.0, 160.0, "kg", LocalDate.now().minusDays(20), LocalDate.now().plusDays(40), "Targeting personal deadlift milestone."));
+        fitnessGoalRepository.save(new FitnessGoal(anand, "Achieve 15 Clean Muscle-Ups", "Muscle Gain", 15.0, 9.0, "reps", LocalDate.now().minusDays(15), LocalDate.now().plusDays(45), "Master strict bar muscle-ups with clean form."));
+        fitnessGoalRepository.save(new FitnessGoal(parv, "Hit 180kg Deadlift 1RM", "Powerlifting", 180.0, 160.0, "kg", LocalDate.now().minusDays(20), LocalDate.now().plusDays(40), "Targeting personal deadlift milestone."));
+        fitnessGoalRepository.save(new FitnessGoal(aniket, "Complete Half-Marathon under 1h 45m", "Running Distance", 21.1, 15.0, "km", LocalDate.now().minusDays(12), LocalDate.now().plusDays(35), "Target half-marathon pace conditioning."));
 
         // 4. Seed Challenges
         Challenge c1 = new Challenge("30-Day Core & Abs Blitz", "Transform your core strength with 30 consecutive days of focused abdominal exercises, planks, and stability training.", "Strength", "Intermediate", 30.0, "days", LocalDate.now().minusDays(5), LocalDate.now().plusDays(25), "Core Titan");
@@ -157,20 +179,30 @@ public class DataInitializer implements CommandLineRunner {
         cp2.recalculateProgress();
         participantRepository.save(cp2);
 
-        ChallengeParticipant cp3 = new ChallengeParticipant(aryan, c1);
+        ChallengeParticipant cp3 = new ChallengeParticipant(anand, c1);
         cp3.setProgressValue(22.0);
         cp3.recalculateProgress();
         participantRepository.save(cp3);
 
-        ChallengeParticipant cp4 = new ChallengeParticipant(aryaman, c1);
+        ChallengeParticipant cp4 = new ChallengeParticipant(parv, c1);
         cp4.setProgressValue(14.0);
         cp4.recalculateProgress();
         participantRepository.save(cp4);
 
-        ChallengeParticipant cp5 = new ChallengeParticipant(aryan, c3);
+        ChallengeParticipant cp5 = new ChallengeParticipant(anand, c3);
         cp5.setProgressValue(14.0);
         cp5.recalculateProgress(); // 100% completed
         participantRepository.save(cp5);
+
+        ChallengeParticipant cp6 = new ChallengeParticipant(aniket, c2);
+        cp6.setProgressValue(82.0);
+        cp6.recalculateProgress();
+        participantRepository.save(cp6);
+
+        ChallengeParticipant cp7 = new ChallengeParticipant(aniket, c4);
+        cp7.setProgressValue(2850.0);
+        cp7.recalculateProgress();
+        participantRepository.save(cp7);
 
         // 6. Seed Fitness Content
         FitnessContent art1 = new FitnessContent(ansh,
@@ -185,7 +217,7 @@ public class DataInitializer implements CommandLineRunner {
         art1.setAdminFeedback("Comprehensive and scientifically sound. Approved for featured publication.");
         fitnessContentRepository.save(art1);
 
-        FitnessContent art2 = new FitnessContent(aryan,
+        FitnessContent art2 = new FitnessContent(anand,
                 "Nutritional Timing: Optimizing Fuel Before and After High-Intensity Sessions",
                 "Nutrition & Diet",
                 "A practical roadmap to pre-workout carbohydrate availability and post-workout glycogen synthesis combined with rapid amino acid uptake.",
@@ -197,7 +229,7 @@ public class DataInitializer implements CommandLineRunner {
         art2.setAdminFeedback("Excellent actionable guide for our members.");
         fitnessContentRepository.save(art2);
 
-        FitnessContent art3 = new FitnessContent(aryaman,
+        FitnessContent art3 = new FitnessContent(parv,
                 "The Crucial Role of Sleep Architecture in Athletic Recovery",
                 "Recovery & Sleep",
                 "How deep slow-wave sleep and REM cycles regulate growth hormone release, cortisol suppression, and tissue repair.",
@@ -205,6 +237,18 @@ public class DataInitializer implements CommandLineRunner {
         );
         art3.setStatus("PENDING");
         fitnessContentRepository.save(art3);
+
+        FitnessContent art4 = new FitnessContent(aniket,
+                "Aerobic Base Conditioning & Lactate Threshold Optimization",
+                "Workout Guide",
+                "Zone 2 training protocols for mitochondrial density expansion and sustained lactate buffering efficiency.",
+                "Zone 2 aerobic base building enables athletes to sustain higher outputs while relying predominantly on fatty acid oxidation, preserving glycogen for high-intensity surges. Consistent weekly volume at conversational effort produces left ventricular eccentric hypertrophy, boosting stroke volume."
+        );
+        art4.setStatus("APPROVED");
+        art4.setReviewedBy("admin");
+        art4.setReviewedAt(LocalDateTime.now().minusHours(12));
+        art4.setAdminFeedback("Superb endurance protocol article.");
+        fitnessContentRepository.save(art4);
 
         // 7. Seed System Settings
         systemSettingRepository.save(new SystemSetting("APP_TITLE", "FitTrack - Online Fitness Tracking System", "Application brand title"));
@@ -216,7 +260,9 @@ public class DataInitializer implements CommandLineRunner {
         activityLogRepository.save(new ActivityLog(admin, "LOGIN", "Admin authenticated successfully", "127.0.0.1"));
         activityLogRepository.save(new ActivityLog(ansh, "LOGIN", "User @ansh logged in", "127.0.0.1"));
         activityLogRepository.save(new ActivityLog(ansh, "WORKOUT_LOGGED", "Logged Strength workout: 'Chest & Triceps Hypertrophy'", "127.0.0.1"));
-        activityLogRepository.save(new ActivityLog(ansh, "CHALLENGE_JOINED", "Joined challenge: '30-Day Core & Abs Blitz'", "127.0.0.1"));
+        activityLogRepository.save(new ActivityLog(anand, "LOGIN", "User @anand logged in", "127.0.0.1"));
+        activityLogRepository.save(new ActivityLog(parv, "LOGIN", "User @parv logged in", "127.0.0.1"));
+        activityLogRepository.save(new ActivityLog(aniket, "LOGIN", "User @aniket logged in", "127.0.0.1"));
         activityLogRepository.save(new ActivityLog(admin, "CONTENT_APPROVED", "Admin approved article 'The Science of Progressive Overload'", "127.0.0.1"));
 
         System.out.println(">>> FitTrack Seed Data Successfully Loaded!");

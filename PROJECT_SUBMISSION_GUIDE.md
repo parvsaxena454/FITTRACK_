@@ -2,7 +2,7 @@
 
 **Project Title:** FitTrack: Online Fitness Tracking System  
 **Lead Developer & Team Leader:** Ansh (25SCSE1180706)  
-**Team Members:** Aryan Bhardwaj (25SCSE1180192), Aryaman Singh (25SCSE1180867)  
+**Active Members:** Anand Soni, Parv Saxena, Aniket Raj  
 **Evaluation:** Java Enterprise & Object-Oriented Software Engineering (CSE / AI & ML)
 
 ---
