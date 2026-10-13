@@ -1,7 +1,7 @@
 -- =========================================================================
 -- FITTRACK: Online Fitness Tracking System
 -- Relational Database Schema DDL (MySQL 8.0 Compatible)
--- Team: Ansh (Leader), Anand Soni, Parv Saxena, Aniket Raj
+-- Team: Ansh Kataria (Group Leader), Parv Saxena, Anand Soni, Aniket Raj
 -- =========================================================================
 
 CREATE DATABASE IF NOT EXISTS fittrack_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

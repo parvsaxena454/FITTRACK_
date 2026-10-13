@@ -50,6 +50,11 @@ public class DataInitializer implements CommandLineRunner {
             return; // Data already initialized
         }
 
+        System.out.println("=========================================================================");
+        System.out.println("       FitTrack: Online Fitness Tracking System");
+        System.out.println("       Group Leader:  Ansh Kataria");
+        System.out.println("       Group Members: Parv Saxena, Anand Soni, Aniket Raj");
+        System.out.println("=========================================================================");
         System.out.println(">>> Initializing FitTrack Seed Data...");
 
         // 1. Seed Users
@@ -68,12 +73,12 @@ public class DataInitializer implements CommandLineRunner {
         admin.setBio("System Administrator and Lead Fitness Director at FitTrack.");
         admin = userRepository.save(admin);
 
-        // Group Leader: Ansh
+        // Group Leader: Ansh Kataria
         User ansh = new User();
         ansh.setUsername("ansh");
         ansh.setEmail("ansh@fittrack.com");
         ansh.setPassword(passwordEncoder.encode("password123"));
-        ansh.setFullName("Ansh");
+        ansh.setFullName("Ansh Kataria");
         ansh.setRole("ROLE_USER");
         ansh.setEnabled(true);
         ansh.setAge(21);
@@ -81,26 +86,10 @@ public class DataInitializer implements CommandLineRunner {
         ansh.setHeight(178.0);
         ansh.setFitnessLevel("Advanced");
         ansh.setTargetGoalSummary("Hypertrophy & Marathon Endurance");
-        ansh.setBio("B.Tech CSE - AI/ML. Team Leader. Fitness enthusiast, marathon runner, and weightlifting advocate.");
+        ansh.setBio("B.Tech CSE - AI/ML. Group Leader: Ansh Kataria. Fitness enthusiast, marathon runner, and weightlifting advocate.");
         ansh = userRepository.save(ansh);
 
-        // Active Member 1: Anand Soni
-        User anand = new User();
-        anand.setUsername("anand");
-        anand.setEmail("anand@fittrack.com");
-        anand.setPassword(passwordEncoder.encode("password123"));
-        anand.setFullName("Anand Soni");
-        anand.setRole("ROLE_USER");
-        anand.setEnabled(true);
-        anand.setAge(21);
-        anand.setWeight(68.0);
-        anand.setHeight(174.0);
-        anand.setFitnessLevel("Intermediate");
-        anand.setTargetGoalSummary("Calisthenics & Lean Mass");
-        anand.setBio("Active Member. B.Tech CSE student passionate about bodyweight mastery, calisthenics, and agility.");
-        anand = userRepository.save(anand);
-
-        // Active Member 2: Parv Saxena
+        // Group Member 1: Parv Saxena
         User parv = new User();
         parv.setUsername("parv");
         parv.setEmail("parv@fittrack.com");
@@ -113,10 +102,26 @@ public class DataInitializer implements CommandLineRunner {
         parv.setHeight(182.0);
         parv.setFitnessLevel("Intermediate");
         parv.setTargetGoalSummary("Powerlifting & Strength Development");
-        parv.setBio("Active Member. Focusing on progressive overload and the Big Three: Squat, Bench, and Deadlift.");
+        parv.setBio("Group Member. Focusing on progressive overload and the Big Three: Squat, Bench, and Deadlift.");
         parv = userRepository.save(parv);
 
-        // Active Member 3: Aniket Raj
+        // Group Member 2: Anand Soni
+        User anand = new User();
+        anand.setUsername("anand");
+        anand.setEmail("anand@fittrack.com");
+        anand.setPassword(passwordEncoder.encode("password123"));
+        anand.setFullName("Anand Soni");
+        anand.setRole("ROLE_USER");
+        anand.setEnabled(true);
+        anand.setAge(21);
+        anand.setWeight(68.0);
+        anand.setHeight(174.0);
+        anand.setFitnessLevel("Intermediate");
+        anand.setTargetGoalSummary("Calisthenics & Lean Mass");
+        anand.setBio("Group Member. B.Tech CSE student passionate about bodyweight mastery, calisthenics, and agility.");
+        anand = userRepository.save(anand);
+
+        // Group Member 3: Aniket Raj
         User aniket = new User();
         aniket.setUsername("aniket");
         aniket.setEmail("aniket@fittrack.com");
@@ -129,7 +134,7 @@ public class DataInitializer implements CommandLineRunner {
         aniket.setHeight(176.0);
         aniket.setFitnessLevel("Advanced");
         aniket.setTargetGoalSummary("Sub-40 10K & Metabolic Conditioning");
-        aniket.setBio("Active Member. Dedicated to long-distance running, interval cardiovascular conditioning, and HIIT.");
+        aniket.setBio("Group Member. Dedicated to long-distance running, interval cardiovascular conditioning, and HIIT.");
         aniket = userRepository.save(aniket);
 
         // 2. Seed Workouts

@@ -7,12 +7,12 @@
 
 ## 👥 Project Team & Academic Credentials
 
-| Role | Name | University Registration No. | Specialization / Branch |
-|---|---|---|---|
-| **Group Leader** | **Ansh** | `25SCSE1180706` | B.Tech Computer Science & Engineering (AI & ML) |
-| **Active Member** | **Anand Soni** | — | B.Tech Computer Science & Engineering |
-| **Active Member** | **Parv Saxena** | — | B.Tech Computer Science & Engineering |
-| **Active Member** | **Aniket Raj** | — | B.Tech Computer Science & Engineering |
+| Role | Name | Specialization / Branch |
+|---|---|---|
+| **Group Leader** | **Ansh Kataria** | B.Tech Computer Science & Engineering (AI & ML) |
+| **Group Member** | **Parv Saxena** | B.Tech Computer Science & Engineering |
+| **Group Member** | **Anand Soni** | B.Tech Computer Science & Engineering |
+| **Group Member** | **Aniket Raj** | B.Tech Computer Science & Engineering |
 
 ---
 
@@ -42,10 +42,10 @@ http://localhost:8080/
 | Role | Username / Email | Password | Access Rights & Modules |
 |---|---|---|---|
 | **System Administrator** | `admin` / `admin@fittrack.com` | `admin123` | Full Admin Dashboard, User Account Ban/Promote, Challenge Creation, Editorial Review Queue, Audit Logs, System Settings |
-| **End-User (Leader)** | `ansh` / `ansh@fittrack.com` | `password123` | Full Workout Logging, Multi-Metric Goals, Community Challenges, Article Submissions, BMI & Weight Analytics |
-| **Active Member** | `anand` / `anand@fittrack.com` | `password123` | Calisthenics Routine Tracking, Challenge Progress, Leaderboard Participation |
-| **Active Member** | `parv` / `parv@fittrack.com` | `password123` | Strength & Powerlifting Logs, Goal Milestones, Fitness Article Submissions |
-| **Active Member** | `aniket` / `aniket@fittrack.com` | `password123` | Endurance Runs, HIIT Conditioning, Community Challenges & Articles |
+| **Group Leader (End-User)** | `ansh` / `ansh@fittrack.com` | `password123` | Ansh Kataria - Full Workout Logging, Multi-Metric Goals, Community Challenges, Article Submissions, BMI & Weight Analytics |
+| **Group Member** | `parv` / `parv@fittrack.com` | `password123` | Parv Saxena - Strength & Powerlifting Logs, Goal Milestones, Fitness Article Submissions |
+| **Group Member** | `anand` / `anand@fittrack.com` | `password123` | Anand Soni - Calisthenics Routine Tracking, Challenge Progress, Leaderboard Participation |
+| **Group Member** | `aniket` / `aniket@fittrack.com` | `password123` | Aniket Raj - Endurance Runs, HIIT Conditioning, Community Challenges & Articles |
 
 *(Note: The login page features quick 1-click test credential fill buttons for immediate viva demonstration!)*
 
@@ -227,4 +227,4 @@ We have provided a fully automated script: **`push_to_github.bat`**.
 ---
 
 ## 📜 Academic Declaration & Acknowledgements
-This project was developed by **Ansh** (Team Leader), **Anand Soni**, **Parv Saxena**, and **Aniket Raj** as a comprehensive submission for the Java Full-Stack & Object-Oriented Software Engineering Evaluation. All rights reserved.
+This project was developed by **Ansh Kataria** (Group Leader), **Parv Saxena**, **Anand Soni**, and **Aniket Raj** as a comprehensive submission for the Java Full-Stack & Object-Oriented Software Engineering Evaluation. All rights reserved.

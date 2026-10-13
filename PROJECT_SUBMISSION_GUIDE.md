@@ -1,8 +1,8 @@
 # 📘 FITTRACK - ACADEMIC PROJECT SUBMISSION & VIVA DEFENSE GUIDE
 
 **Project Title:** FitTrack: Online Fitness Tracking System  
-**Lead Developer & Team Leader:** Ansh (25SCSE1180706)  
-**Active Members:** Anand Soni, Parv Saxena, Aniket Raj  
+**Group Leader:** Ansh Kataria (25SCSE1180706)  
+**Group Members:** Parv Saxena, Anand Soni, Aniket Raj  
 **Evaluation:** Java Enterprise & Object-Oriented Software Engineering (CSE / AI & ML)
 
 ---
@@ -110,7 +110,7 @@ The project comes with `schema-mysql.sql` containing standard DDL for all 8 enti
 
 ## 🧪 4. Quick Testing & Demo Checklist
 1. **Start Application:** Double-click `run.bat` or run `mvn spring-boot:run`.
-2. **Login as Leader (Ansh):** Click "Fill Ansh (User)" button on login page, click "Sign In".
+2. **Login as Leader (Ansh Kataria):** Click "Ansh Kataria (Leader)" button on login page, click "Sign In".
 3. **Log a Workout:** Go to "Workouts" -> "Log New Workout" -> fill in details -> Save. Observe immediate recalculation of total calories burned and statistics.
 4. **Inspect Pure Servlet:** Navigate to `http://localhost:8080/api/servlet/metrics` to show the examiner the raw Servlet response outputting live JVM memory, active sessions, and request counts.
 5. **Login as Admin:** Log out, click "Fill Admin" button, and log in. Navigate to Admin Dashboard to review user accounts, approve pending fitness guides, and view system activity logs.

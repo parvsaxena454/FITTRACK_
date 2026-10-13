@@ -3,13 +3,14 @@ title FitTrack - Online Fitness Tracking System
 echo =========================================================================
 echo               FITTRACK - Online Fitness Tracking System
 echo       Full-Stack Java Web Application (Spring Boot + Thymeleaf + JPA)
-echo   Group: Ansh (Leader), Anand Soni, Parv Saxena, Aniket Raj
+echo   Group Leader:  Ansh Kataria
+echo   Group Members: Parv Saxena, Anand Soni, Aniket Raj
 echo =========================================================================
 echo.
 echo Starting Spring Boot Application on http://localhost:8080 ...
 echo Preloaded Accounts:
-echo   - Admin: admin@fittrack.com / admin123
-echo   - User:  ansh@fittrack.com / password123
+echo   - Admin:  admin@fittrack.com / admin123
+echo   - Leader: ansh@fittrack.com / password123 (Ansh Kataria)
 echo.
 
 where mvn >nul 2>nul
