@@ -9,10 +9,10 @@
 
 | Role | Name | Specialization / Branch |
 |---|---|---|
-| **Group Leader** | **Ansh Kataria** | B.Tech Computer Science & Engineering (AI & ML) |
-| **Group Member** | **Parv Saxena** | B.Tech Computer Science & Engineering |
-| **Group Member** | **Anand Soni** | B.Tech Computer Science & Engineering |
-| **Group Member** | **Aniket Raj** | B.Tech Computer Science & Engineering |
+| **Group Leader** | **Ansh Kataria** | Computer Science and Engineering |
+| **Group Member** | **Parv Saxena** | Computer Science and Engineering |
+| **Group Member** | **Anand Soni** | Computer Science and Engineering |
+| **Group Member** | **Aniket Raj** | Computer Science and Engineering |
 
 ---
 

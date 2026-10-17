@@ -86,7 +86,7 @@ public class DataInitializer implements CommandLineRunner {
         ansh.setHeight(178.0);
         ansh.setFitnessLevel("Advanced");
         ansh.setTargetGoalSummary("Hypertrophy & Marathon Endurance");
-        ansh.setBio("B.Tech CSE - AI/ML. Group Leader: Ansh Kataria. Fitness enthusiast, marathon runner, and weightlifting advocate.");
+        ansh.setBio("Computer Science and Engineering. Group Leader: Ansh Kataria. Fitness enthusiast, marathon runner, and weightlifting advocate.");
         ansh = userRepository.save(ansh);
 
         // Group Member 1: Parv Saxena

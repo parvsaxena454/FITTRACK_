@@ -3,7 +3,7 @@
 **Project Title:** FitTrack: Online Fitness Tracking System  
 **Group Leader:** Ansh Kataria (25SCSE1180706)  
 **Group Members:** Parv Saxena, Anand Soni, Aniket Raj  
-**Evaluation:** Java Enterprise & Object-Oriented Software Engineering (CSE / AI & ML)
+**Evaluation:** Java Enterprise & Object-Oriented Software Engineering (Computer Science and Engineering)
 
 ---
 
